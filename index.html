@@ -4,25 +4,22 @@
 
    <head>
 
-      <title>ReactZero</title>    
+      <title>React Um</title>    
       <style>
-      
-         #my-table{
+         #tabela{
             border-collapse: collapse;
             width: 20%;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
             text-align: center;
             font-weight: bold;
-
          }
 
-         #my-table tbody tr:nth-of-type(even) {
-            background-color: rgb(13, 182, 151);
+         #tabela thead tr th{
+            padding: 10px;
+            background-color: rgb(16, 177, 156);
             color: white;
          }
-
-         #my-table tbody tr td{
-            border: 1px solid grey;
+         #tabela tbody tr td{
             padding: 10px;
             
          }
@@ -36,59 +33,38 @@
 
       </div>
 
+    
       <script src="libs/react.js"></script>
       <script src="libs/react-dom.js"></script>
+      <script src="libs/babel.js"></script>
 
-      
 
-      <script>
+      <script type="text/babel">
+
+         function Header(){
+            return (<h1> Minha tabela de bebidas </h1>)
+         }
+
+         function MyTable(){
+            return (
+               <div id="app">
+                  <Header/>
+                  <table id="tabela" border="1">
+                     <thead>
+                        <tr><th>Nome</th><th>Marca</th></tr>
+                     </thead>
+                     <tbody>
+                        <tr><td>Havana</td><td>Engenho Anísio Santiago</td></tr>
+                     </tbody>
+                  </table>
+            </div>)
+            
+         }
 
          ReactDOM.render(
-
-            React.createElement(
-               'table',
-               {id: 'my-table'},
-               React.createElement(
-                  'tbody',
-                  null,
-                  React.createElement(
-                     'tr',
-                     null,
-                     React.createElement(
-                        'td',
-                        null,
-                        'teste'
-                     ),
-                     React.createElement(
-                        'td',
-                        null,
-                        'teste'
-                     ),
-                  ),
-                  React.createElement(
-                     'tr',
-                     null,
-                     React.createElement(
-                        'td',
-                        null,
-                        'teste'
-                     ),
-                     React.createElement(
-                        'td',
-                        null,
-                        'teste'
-                     ),
-                  ),
-               ),
-         
-            ),
-         
-            
-            
-
-            document.getElementById('app')
-
-         );
+            <MyTable/>
+            ,
+            document.getElementById("app"))
 
       </script>
 
