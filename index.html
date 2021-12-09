@@ -4,67 +4,82 @@
 
    <head>
 
-      <title>React Um</title>    
-      <style>
-         #tabela{
-            border-collapse: collapse;
-            width: 20%;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-            text-align: center;
-            font-weight: bold;
-         }
-
-         #tabela thead tr th{
-            padding: 10px;
-            background-color: rgb(16, 177, 156);
-            color: white;
-         }
-         #tabela tbody tr td{
-            padding: 10px;
-            
-         }
-      </style>  
+      <title>ReceitaReact - 2</title>      
 
    </head>
+
+   <link rel="stylesheet" href="style.css">
 
    <body>
 
       <div id="app">
-
       </div>
 
-    
       <script src="libs/react.js"></script>
       <script src="libs/react-dom.js"></script>
       <script src="libs/babel.js"></script>
-
-
       <script type="text/babel">
 
-         function Header(){
-            return (<h1> Minha tabela de bebidas </h1>)
+         class TabelaBebidas extends React.Component{
+            render(){
+               return (
+                  <div>
+                     <h1>{this.props.titulo}</h1>
+                     <table id="tabela" border="1">
+                        <thead>
+                           <tr>
+                              <th>Nome</th>
+                              <th>Marca</th></tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>Havana</td>
+                              <td>Engenho Anísio Santiago</td>
+                           </tr>
+                        </tbody>
+                     </table>
+
+                     <Compras/>
+                  </div> 
+               )
+            }
+         }
+         
+         class Compras extends React.Component{
+            render(){
+               return (
+                  <a id="botao-compras" target="_blank" href="https://www.casadabebida.com.br/"> COMPRAR BEBIDAS </a>
+               )
+            }
          }
 
-         function MyTable(){
+         const TabelaBebidas__ = () => {
             return (
-               <div id="app">
-                  <Header/>
+               <div>
+                  <h1> Minha tabela de Bebidas </h1>
                   <table id="tabela" border="1">
                      <thead>
-                        <tr><th>Nome</th><th>Marca</th></tr>
+                        <tr>
+                           <th>Nome</th>
+                           <th>Marca</th>
+                        </tr>
                      </thead>
                      <tbody>
-                        <tr><td>Havana</td><td>Engenho Anísio Santiago</td></tr>
+                        <tr>
+                           <td>Havana</td>
+                           <td>Engenho Anísio Santiago</td>
+                        </tr>
                      </tbody>
                   </table>
-            </div>)
-            
+               </div>  
+            )
          }
 
          ReactDOM.render(
-            <MyTable/>
+            <TabelaBebidas titulo = "Minha Tabela de Bebidas"/>
             ,
-            document.getElementById("app"))
+            document.getElementById("app")
+         )
 
       </script>
 

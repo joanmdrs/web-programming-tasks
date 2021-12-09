@@ -1,0 +1,31 @@
+#tabela{
+    border-collapse: collapse;
+    width: 20%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#tabela thead tr th{
+    padding: 10px;
+    background-color: rgb(16, 177, 156);
+    color: white;
+}
+
+#tabela tbody tr td{
+    padding: 10px;
+
+}
+
+#botao-compras{
+    text-decoration: none;
+    padding: 10px;
+    width: 85px;
+    margin-right: 10px;
+    background-color: rgb(16, 177, 156);
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
