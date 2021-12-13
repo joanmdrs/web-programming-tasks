@@ -20,63 +20,72 @@
       <script src="libs/babel.js"></script>
       <script type="text/babel">
 
-         class TabelaBebidas extends React.Component{
-            render(){
-               return (
-                  <div>
-                     <h1>{this.props.titulo}</h1>
-                     <table id="tabela" border="1">
-                        <thead>
-                           <tr>
-                              <th>Nome</th>
-                              <th>Marca</th></tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                              <td>Havana</td>
-                              <td>Engenho Anísio Santiago</td>
-                           </tr>
-                        </tbody>
-                     </table>
+         const TabelaBebidas = ({titulo, cabecalhos, corpo}) => {
 
-                     <Compras/>
-                  </div> 
-               )
-            }
-         }
-         
-         class Compras extends React.Component{
-            render(){
-               return (
-                  <a id="botao-compras" target="_blank" href="https://www.casadabebida.com.br/"> COMPRAR BEBIDAS </a>
-               )
-            }
-         }
+            // Aqui é onde está sendo criado os cabeçalhos da tabela 
+            // Eu utilizei um array para guardar os elementos
 
-         const TabelaBebidas__ = () => {
+            let colunas = []
+            let index = 0
+            cabecalhos.forEach(header => {
+               colunas.push(<th key = {index}> {header} </th>)
+               index += 1
+            });
+
+            // Aqui é onde está sendo criado o conteúdo da tabela
+            // Utilizei a mesma estratégia, a diferença é que aqui preciso trabalhar 
+            // com um array que contém outros arrays
+
+            let linhas = []
+            let celulas = []
+            let position = 0
+            
+            for(let i = 0; i < corpo.length; i++){
+               for(let j = 0; j < corpo[i].length; j++){
+                  let value = corpo[i][j]
+                  celulas.push(<td key = {position}> {value} </td>)
+                  position += 1
+               }
+            }
+            let l = 0
+            for(let k = 0; k < corpo.length; k++){
+               linhas.push(<tr key = {k}>{celulas[l]}{celulas[l+1]}</tr>)
+               l += 2
+            }
+
             return (
                <div>
-                  <h1> Minha tabela de Bebidas </h1>
+                  <Titulo titulo = {titulo} />
                   <table id="tabela" border="1">
-                     <thead>
-                        <tr>
-                           <th>Nome</th>
-                           <th>Marca</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr>
-                           <td>Havana</td>
-                           <td>Engenho Anísio Santiago</td>
-                        </tr>
-                     </tbody>
+                     <thead><tr>{colunas}</tr></thead>
+                     <tbody>{linhas}</tbody>
                   </table>
-               </div>  
+                  <Compras/>
+               </div> 
             )
          }
 
+         const Titulo = ({titulo}) => {
+            return (
+               <h1> {titulo} </h1>
+            )
+         }
+
+         const Compras = () => {
+            return (
+               <a id="botao-compras" target="_blank" href="https://www.casadabebida.com.br/"> COMPRAR BEBIDAS </a>
+            )
+         }
+      
+         const valoresCabecalhos = ["Nome", "Marca"]
+         const valoresCorpo = [
+            ["Havana", "Engenho Anísio Santiago"],
+            ["Tequila", "José Cuervo Ouro"],
+            ["Whisky", "Jack Daniel"]
+         ]
+         
          ReactDOM.render(
-            <TabelaBebidas titulo = "Minha Tabela de Bebidas"/>
+            <TabelaBebidas titulo="Minha tabela de bebidas" cabecalhos={valoresCabecalhos} corpo={valoresCorpo}/>
             ,
             document.getElementById("app")
          )
