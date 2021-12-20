@@ -57,8 +57,10 @@
                <div>
                   <Titulo titulo = {titulo} />
                   <table id="tabela" border="1">
-                     <thead><tr>{colunas}</tr></thead>
-                     <tbody>{linhas}</tbody>
+                     <thead><tr>{cabecalhos.map(e => <th> {e} </th>)}</tr></thead>
+                     <tbody>
+                              
+                     </tbody>
                   </table>
                   <Compras/>
                </div> 
