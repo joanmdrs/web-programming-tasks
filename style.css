@@ -1,6 +1,5 @@
 #tabela{
     border-collapse: collapse;
-    width: 20%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     text-align: center;
     font-weight: bold;
@@ -15,7 +14,6 @@
 
 #tabela tbody tr td{
     padding: 10px;
-
 }
 
 #botao-compras{

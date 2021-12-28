@@ -1,99 +1,66 @@
 <!DOCTYPE html>
-
 <html>
 
-   <head>
+<head>
+   <title>ReceitaReact - 4</title>      
+   <!-- <link rel="stylesheet" href="./style.css"> -->
+</head>
 
-      <title>ReceitaReact - 2</title>      
+<body>
 
-   </head>
-
-   <link rel="stylesheet" href="style.css">
-
-   <body>
-
-      <div id="app">
-      </div>
-
-      <script src="libs/react.js"></script>
-      <script src="libs/react-dom.js"></script>
-      <script src="libs/babel.js"></script>
-      <script type="text/babel">
-
-         const TabelaBebidas = ({titulo, cabecalhos, corpo}) => {
-
-            // Aqui é onde está sendo criado os cabeçalhos da tabela 
-            // Eu utilizei um array para guardar os elementos
-
-            let colunas = []
-            let index = 0
-            cabecalhos.forEach(header => {
-               colunas.push(<th key = {index}> {header} </th>)
-               index += 1
-            });
-
-            // Aqui é onde está sendo criado o conteúdo da tabela
-            // Utilizei a mesma estratégia, a diferença é que aqui preciso trabalhar 
-            // com um array que contém outros arrays
-
-            let linhas = []
-            let celulas = []
-            let position = 0
-            
-            for(let i = 0; i < corpo.length; i++){
-               for(let j = 0; j < corpo[i].length; j++){
-                  let value = corpo[i][j]
-                  celulas.push(<td key = {position}> {value} </td>)
-                  position += 1
-               }
-            }
-            let l = 0
-            for(let k = 0; k < corpo.length; k++){
-               linhas.push(<tr key = {k}>{celulas[l]}{celulas[l+1]}</tr>)
-               l += 2
-            }
-
-            return (
-               <div>
-                  <Titulo titulo = {titulo} />
-                  <table id="tabela" border="1">
-                     <thead><tr>{cabecalhos.map(e => <th> {e} </th>)}</tr></thead>
-                     <tbody>
-                              
-                     </tbody>
-                  </table>
-                  <Compras/>
-               </div> 
-            )
-         }
-
-         const Titulo = ({titulo}) => {
-            return (
-               <h1> {titulo} </h1>
-            )
-         }
-
-         const Compras = () => {
-            return (
-               <a id="botao-compras" target="_blank" href="https://www.casadabebida.com.br/"> COMPRAR BEBIDAS </a>
-            )
-         }
+   <div id="app">
       
-         const valoresCabecalhos = ["Nome", "Marca"]
-         const valoresCorpo = [
-            ["Havana", "Engenho Anísio Santiago"],
-            ["Tequila", "José Cuervo Ouro"],
-            ["Whisky", "Jack Daniel"]
-         ]
-         
-         ReactDOM.render(
-            <TabelaBebidas titulo="Minha tabela de bebidas" cabecalhos={valoresCabecalhos} corpo={valoresCorpo}/>
-            ,
-            document.getElementById("app")
+   </div>
+
+   <script src="libs/react.js"></script>
+   <script src="libs/react-dom.js"></script>
+   <script src="libs/babel.js"></script>
+
+   <script type="text/babel">
+
+      // Função que pega os dados da API
+      var objetos = []
+      const Buscar = async (event) => {
+         event.preventDefault()
+         let url = `https://random-data-api.com/api/beer/random_beer?size=30` 
+         let res = await fetch(url);
+         objetos = await res.json();
+      }
+
+      // Função que monta a tabela 
+      const GeraTabela = ({titulo,cabecalhos,propriedades}) => {
+
+         return (
+            <div>
+               <h1>{titulo}</h1>
+               <table id="tabela" border="1">
+                  <thead>
+                     <tr>{cabecalhos.map( (e,i) => <th key={i}>{e}</th>)}</tr>
+                  </thead>
+
+                  <tbody>
+                     {objetos.map((e,i) => <tr key={i}>{propriedades.map( (f,j) => <td key={j}>{e[f]}</td>)}</tr>)}
+                  </tbody>
+               </table>
+            </div>
          )
+      }
 
-      </script>
+      const cabecalhos = ["Nome", "Marca","Álcool %"]  
+      const propriedades = ["name","brand","alcohol"]   
+      
+      // Função que só retorna a tabela quando os dados da API são carregados
+      const MostraTabela = async () => {
+         await Buscar(event);
 
-   </body>
+         ReactDOM.render(
+            <GeraTabela titulo="Minha tabela de bebidas" cabecalhos={cabecalhos} propriedades={propriedades}/>,
+            document.getElementById("app"))
+      }
+      MostraTabela();
+
+   </script>
+
+</body>
 
 </html>
