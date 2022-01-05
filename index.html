@@ -3,7 +3,7 @@
 
 <head>
    <title>ReceitaReact - 4</title>      
-   <!-- <link rel="stylesheet" href="./style.css"> -->
+   <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
@@ -19,16 +19,17 @@
    <script type="text/babel">
 
       // Função que pega os dados da API
-      var objetos = []
       const Buscar = async (event) => {
+         var objetos = []
          event.preventDefault()
          let url = `https://random-data-api.com/api/beer/random_beer?size=30` 
          let res = await fetch(url);
          objetos = await res.json();
+         return objetos
       }
 
       // Função que monta a tabela 
-      const GeraTabela = ({titulo,cabecalhos,propriedades}) => {
+      const GeraTabela = ({titulo,cabecalhos,propriedades,corpo}) => {
 
          return (
             <div>
@@ -39,7 +40,7 @@
                   </thead>
 
                   <tbody>
-                     {objetos.map((e,i) => <tr key={i}>{propriedades.map( (f,j) => <td key={j}>{e[f]}</td>)}</tr>)}
+                     {corpo.map((e,i) => <tr key={i}>{propriedades.map( (f,j) => <td key={j}>{e[f]}</td>)}</tr>)}
                   </tbody>
                </table>
             </div>
@@ -51,10 +52,10 @@
       
       // Função que só retorna a tabela quando os dados da API são carregados
       const MostraTabela = async () => {
-         await Buscar(event);
+         const corpo = await Buscar(event)
 
          ReactDOM.render(
-            <GeraTabela titulo="Minha tabela de bebidas" cabecalhos={cabecalhos} propriedades={propriedades}/>,
+            <GeraTabela titulo="Minha tabela de bebidas" cabecalhos={cabecalhos} propriedades={propriedades} corpo={corpo}/>,
             document.getElementById("app"))
       }
       MostraTabela();
